@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+
+<head>
+
+<title>deoxys</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<video autoplay muted loop id="bg-video">
+  <source src="images/bgvid.mp4" type="video/mp4">
+</video>
+
+<audio id="bgmusic" loop>
+  <source src="./music/bgmusic.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const audio = document.getElementById("bgmusic");
+document.addEventListener("click", () => {
+  audio.play();
+}, { once: true });
+</script>
+    
+<img src="images/profilelogo.png" class="logo" alt="Site Logo">
+
+<br>
+<br>
+
+<div class="txtbox">
+    <img src="./images/deoxyspfp.png" class="pfp" alt="deoxyspfp">
+
+    <h1>deoxys
+        <span class="badge-container">
+        <img src="./images/badge.png" class="badge" alt="badge">
+        <span class="badge-tooltip">Owner</span>
+    </span>
+    </h1>
+    <p>Deoxys is a Psychic-type Mythical Pokémon introduced in Generation III.<br> It is known as the DNA Pokémon and has the ability to change its form, which alters its stats and appearance.<br> Deoxys has four different forms: Normal, Attack, Defense, and Speed.</p>
+</div>
+
+</body>
