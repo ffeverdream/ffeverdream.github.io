@@ -4,85 +4,107 @@
 <head>
 <meta charset="UTF-8">
 <title>deoxys</title>
-
 <link rel="stylesheet" href="style.css">
-
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <div id="enter-screen">
-    <h1>deoxys</h1>
-    <p>click to enter</p>
+<h1>deoxys</h1>
+<p>click to enter</p>
 </div>
 
-<video autoplay muted loop id="bgvid">
-    <source src="background.mp4" type="video/mp4">
+<video autoplay muted loop id="bg-video">
+<source src="images/bgvid.mp4" type="video/mp4">
 </video>
+
+<audio id="bgmusic" loop>
+<source src="music/bgmusic.mp3" type="audio/mpeg">
+</audio>
+
+<img src="images/profilelogo.png" class="logo">
 
 <div class="txtbox">
 
-    <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5">
+<input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5">
 
-    <h1>deoxys</h1>
+<img src="images/deoxyspfp.png" class="pfp">
+
+<h1>
+deoxys
+<span class="badge-container">
+<img src="images/badge.png" class="badge">
+<span class="badge-tooltip">Owner</span>
+</span>
+</h1>
+
+<p>
+Deoxys is a Psychic-type Mythical Pokémon introduced in Generation III.<br>
+It is known as the DNA Pokémon and has the ability to change its form.<br>
+It has four forms: Normal, Attack, Defense and Speed.
+</p>
 
 </div>
 
-<audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mp3">
-</audio>
-
 <script>
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function(){
 
-const audio = document.getElementById("bgMusic")
+const audio = document.getElementById("bgmusic")
 const slider = document.getElementById("volumeSlider")
 const enterScreen = document.getElementById("enter-screen")
 
+if(audio){
 audio.volume = 0.15
+}
 
-enterScreen.addEventListener("click", () => {
+if(enterScreen){
 
-    enterScreen.style.opacity = "0"
+enterScreen.addEventListener("click", function(){
 
-    setTimeout(() => {
-        enterScreen.style.display = "none"
-    }, 500)
+enterScreen.style.opacity = "0"
 
-    audio.play()
+setTimeout(function(){
+enterScreen.style.display = "none"
+},500)
 
-})
-
-slider.addEventListener("input", () => {
-
-    const maxVolume = 0.30
-    audio.volume = slider.value * maxVolume
+if(audio){
+audio.play().catch(()=>{})
+}
 
 })
 
-const trailImage = "trail.png"
+}
 
-document.addEventListener("mousemove", e => {
+if(slider && audio){
 
-    const trail = document.createElement("img")
+slider.addEventListener("input", function(){
+audio.volume = slider.value * 0.3
+})
 
-    trail.src = trailImage
-    trail.className = "cursor-trail"
+}
 
-    trail.style.left = e.pageX + "px"
-    trail.style.top = e.pageY + "px"
+document.addEventListener("mousemove", function(e){
 
-    document.body.appendChild(trail)
+const trail = document.createElement("img")
 
-    setTimeout(() => {
-        trail.remove()
-    }, 600)
+trail.src = "images/trail.png"
+trail.className = "cursor-trail"
+
+trail.style.left = e.pageX + "px"
+trail.style.top = e.pageY + "px"
+
+document.body.appendChild(trail)
+
+setTimeout(function(){
+trail.remove()
+},500)
 
 })
 
 })
+
 </script>
 
 </body>
