@@ -41,70 +41,68 @@ deoxys
 
 <p>
 Deoxys is a Psychic-type Mythical Pokémon introduced in Generation III.<br>
-It is known as the DNA Pokémon and has the ability to change its form.<br>
-It has four forms: Normal, Attack, Defense and Speed.
+It is known as the DNA Pokémon and can change its form.<br>
+Normal, Attack, Defense and Speed forms exist.
 </p>
 
 </div>
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded",function(){
 
-const audio = document.getElementById("bgmusic")
-const slider = document.getElementById("volumeSlider")
-const enterScreen = document.getElementById("enter-screen")
+const audio=document.getElementById("bgmusic")
+const slider=document.getElementById("volumeSlider")
+const enter=document.getElementById("enter-screen")
 
 if(audio){
-audio.volume = 0.15
+audio.volume=0.15
 }
 
-if(enterScreen){
+if(enter){
+enter.addEventListener("click",function(){
 
-enterScreen.addEventListener("click", function(){
-
-enterScreen.style.opacity = "0"
+enter.style.opacity="0"
+enter.style.pointerEvents="none"
 
 setTimeout(function(){
-enterScreen.style.display = "none"
-},500)
+enter.style.display="none"
+},600)
 
 if(audio){
 audio.play().catch(()=>{})
 }
 
 })
-
 }
 
-if(slider && audio){
+if(slider&&audio){
 
-slider.addEventListener("input", function(){
-audio.volume = slider.value * 0.3
+slider.addEventListener("input",function(){
+audio.volume=slider.value*0.3
 })
 
 }
 
-document.addEventListener("mousemove", function(e){
+document.addEventListener("mousemove",function(e){
 
-const trail = document.createElement("img")
+const trail=document.createElement("img")
 
-trail.src = "images/trail.png"
-trail.className = "cursor-trail"
+trail.src="images/trail.png"
+trail.className="cursor-trail"
 
-trail.style.left = e.pageX + "px"
-trail.style.top = e.pageY + "px"
+trail.style.left=e.pageX+"px"
+trail.style.top=e.pageY+"px"
 
 document.body.appendChild(trail)
 
 setTimeout(function(){
 trail.remove()
-},500)
+},600)
 
 })
 
 })
-
 </script>
 
 </body>
