@@ -6,7 +6,7 @@ overflow:hidden;
 cursor:none;
 }
 
-#bgvid{
+#bg-video{
 position:fixed;
 right:0;
 bottom:0;
@@ -16,54 +16,117 @@ object-fit:cover;
 z-index:-1;
 }
 
+.logo{
+position:absolute;
+top:20px;
+left:20px;
+width:80px;
+}
+
 .txtbox{
+
 position:absolute;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
+
 padding:40px 80px;
+
 background:rgba(255,255,255,0.05);
 border-radius:16px;
+
 backdrop-filter:blur(12px);
-display:flex;
-align-items:center;
-gap:40px;
+
+text-align:center;
+}
+
+.pfp{
+width:120px;
+border-radius:100px;
+margin-bottom:20px;
 }
 
 .txtbox h1{
-margin:0;
+margin:10px 0;
 font-size:42px;
 }
 
 #volumeSlider{
+
 appearance:none;
+
+position:absolute;
+left:-140px;
+top:40px;
+
 width:120px;
 height:4px;
+
 background:rgba(255,255,255,0.3);
 border-radius:4px;
 outline:none;
 }
 
 #volumeSlider::-webkit-slider-thumb{
+
 appearance:none;
+
 width:14px;
 height:14px;
+
 border-radius:50%;
+
 background:#caa8ff;
+
 box-shadow:0 0 10px #caa8ff;
 cursor:pointer;
 }
 
+.badge-container{
+position:relative;
+display:inline-block;
+}
+
+.badge{
+width:24px;
+margin-left:6px;
+}
+
+.badge-tooltip{
+
+position:absolute;
+bottom:-28px;
+left:50%;
+transform:translateX(-50%);
+
+background:black;
+padding:4px 8px;
+font-size:12px;
+border-radius:4px;
+
+opacity:0;
+pointer-events:none;
+transition:.2s;
+}
+
+.badge-container:hover .badge-tooltip{
+opacity:1;
+}
+
 #enter-screen{
+
 position:fixed;
 inset:0;
+
 background:black;
+
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-font-size:20px;
+
 z-index:999;
+
 transition:opacity .5s ease;
 }
 
@@ -77,21 +140,29 @@ opacity:.6;
 }
 
 .cursor-trail{
+
 position:absolute;
 width:18px;
+
 pointer-events:none;
+
 transform:translate(-50%,-50%);
-animation:trailFade .6s linear forwards;
+
+animation:trailFade .5s linear forwards;
+
 filter:drop-shadow(0 0 6px #b48aff);
 }
 
 @keyframes trailFade{
+
 0%{
 opacity:1;
 transform:translate(-50%,-50%) scale(1);
 }
+
 100%{
 opacity:0;
 transform:translate(-50%,-50%) scale(.2) rotate(90deg);
 }
+
 }
