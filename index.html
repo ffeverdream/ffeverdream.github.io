@@ -1,127 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+<meta charset="UTF-8">
 <title>deoxys</title>
+
 <link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
 <div id="enter-screen">
-    <div class="enter-content">
-        <h1>deoxys</h1>
-    </div>
+    <h1>deoxys</h1>
+    <p>click to enter</p>
 </div>
 
-<video autoplay muted loop id="bg-video">
-  <source src="images/bgvid.mp4" type="video/mp4">
+<video autoplay muted loop id="bgvid">
+    <source src="background.mp4" type="video/mp4">
 </video>
 
-<audio id="bgmusic" loop>
-  <source src="./music/bgmusic.mp3" type="audio/mpeg">
-</audio>
-
-<img src="images/profilelogo.png" class="logo" alt="Site Logo">
-
-<br>
-<br>
-
 <div class="txtbox">
-    <img src="./images/deoxyspfp.png" class="pfp" alt="deoxyspfp">
 
-    <input
-    class="vol-slider"
-    type="range"
-    min="0"
-    max="0.30"
-    step="0.01"
-    value="0.15"
-    oninput="setVolume(this.value)">
+    <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5">
 
-    <h1>deoxys
-        <span class="badge-container">
-        <img src="./images/badge.png" class="badge" alt="badge">
-        <span class="badge-tooltip">Owner</span>
-        </span>
-    </h1>
+    <h1>deoxys</h1>
 
-    <p>
-    Deoxys is a Psychic-type Mythical Pokémon introduced in Generation III.<br>
-    It is known as the DNA Pokémon and has the ability to change its form, which alters its stats and appearance.<br>
-    Deoxys has four different forms: Normal, Attack, Defense, and Speed.
-    </p>
 </div>
 
+<audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mp3">
+</audio>
+
 <script>
+
 document.addEventListener("DOMContentLoaded", () => {
 
-  const audio = document.getElementById("bgmusic");
-  const enterScreen = document.getElementById("enter-screen");
+const audio = document.getElementById("bgMusic")
+const slider = document.getElementById("volumeSlider")
+const enterScreen = document.getElementById("enter-screen")
 
-  audio.volume = 0.15;
+audio.volume = 0.15
 
-  enterScreen.addEventListener("click", () => {
+enterScreen.addEventListener("click", () => {
 
-    audio.play();
-
-    enterScreen.style.opacity = "0";
-    enterScreen.style.transition = "opacity 0.5s ease";
+    enterScreen.style.opacity = "0"
 
     setTimeout(() => {
-      enterScreen.remove();
-    }, 500);
+        enterScreen.style.display = "none"
+    }, 500)
 
-  });
+    audio.play()
 
-});
+})
 
-function setVolume(value) {
-  const audio = document.getElementById("bgmusic");
-  audio.volume = Math.min(value, 0.30);
-}
-</script>
+slider.addEventListener("input", () => {
 
-<script>
-document.addEventListener("mousemove", (e) => {
-  spawnParticle(e.clientX, e.clientY);
-});
+    const maxVolume = 0.30
+    audio.volume = slider.value * maxVolume
 
-function spawnParticle(x, y) {
+})
 
-  const particle = document.createElement("img");
-  particle.src = "./images/trail.png";
-  particle.className = "cursor-particle";
+const trailImage = "trail.png"
 
-  document.body.appendChild(particle);
+document.addEventListener("mousemove", e => {
 
-  particle.style.left = x + "px";
-  particle.style.top = y + "px";
+    const trail = document.createElement("img")
 
-  const angle = Math.random() * Math.PI * 2;
-  const velocity = Math.random() * 40 + 10;
+    trail.src = trailImage
+    trail.className = "cursor-trail"
 
-  const dx = Math.cos(angle) * velocity;
-  const dy = Math.sin(angle) * velocity;
+    trail.style.left = e.pageX + "px"
+    trail.style.top = e.pageY + "px"
 
-  particle.animate([
-    {
-      transform: "translate(-50%, -50%) scale(1)",
-      opacity: 1
-    },
-    {
-      transform: `translate(${dx}px, ${dy}px) scale(0.3)`,
-      opacity: 0
-    }
-  ], {
-    duration: 700,
-    easing: "ease-out"
-  });
+    document.body.appendChild(trail)
 
-  setTimeout(() => {
-    particle.remove();
-  }, 700);
-}
+    setTimeout(() => {
+        trail.remove()
+    }, 600)
+
+})
+
+})
 </script>
 
 </body>
