@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>dogwarrior31</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="enter-screen">
+<div class="enter-content">
+<h1>dogwarrior31</h1>
+</div>
+</div>
+
+<video autoplay muted loop id="bg-video">
+<source src="images/bgvid.mp4" type="video/mp4">
+</video>
+
+<audio id="bgmusic"></audio>
+
+<br><br>
+
+<div class="txtbox">
+
+<img src="./images/biolinkpfp.png" class="pfp" alt="biolinkpfp">
+
+<div class="title-wrapper">
+<h1>dogwarrior31</h1>
+
+<span class="badge-container">
+<img src="images/badge.png" class="badge" alt="badge">
+<span class="badge-tooltip">Guts</span>
+</span>
+
+</div>
+
+<p id="typewriter"></p>
+
+</div>
+
+<div class="music-box">
+
+<div class="music-player">
+
+<img id="album-cover" src="images/placeholder-cover.png">
+
+<div class="song-info">
+<p id="song-title">Placeholder Song Title</p>
+
+<div class="music-controls">
+<button onclick="prevSong()" class="music-btn">◀</button>
+<button onclick="nextSong()" class="music-btn">▶</button>
+</div>
+
+<input
+class="vol-slider"
+type="range"
+min="0"
+max="0.30"
+step="0.01"
+value="0.15"
+oninput="setVolume(this.value)">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const playlist=[
+{src:"./music/bgmusic.mp3",title:"Stateside + Zara Larsson",cover:"images/albumcover1.png"},
+{src:"./music/bgmusic2.mp3",title:"90210",cover:"images/albumcover2.png"},
+{src:"./music/bgmusic3.mp3",title:"A.D.H.D",cover:"images/albumcover3.png"},
+{src:"./music/bgmusic4.mp3",title:"Big Brother",cover:"images/albumcover4.png"},
+{src:"./music/bgmusic5.mp3",title:"500lbs",cover:"images/albumcover5.png"},
+{src:"./music/bgmusic6.mp3",title:"Oh My Dis Side (feat. Quavo)",cover:"images/albumcover2.png"}
+];
+
+let trackIndex=0;
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+const audio=document.getElementById("bgmusic");
+const enterScreen=document.getElementById("enter-screen");
+
+audio.volume=0.65;
+
+loadSong();
+
+audio.addEventListener("ended",()=>{
+nextSong();
+});
+
+enterScreen.addEventListener("click",()=>{
+
+audio.play();
+
+enterScreen.style.opacity="0";
+enterScreen.style.transition="opacity 0.5s ease";
+
+setTimeout(()=>{
+enterScreen.remove();
+},500);
+
+});
+
+});
+
+function loadSong(){
+const audio=document.getElementById("bgmusic");
+const song=playlist[trackIndex];
+audio.src=song.src;
+document.getElementById("song-title").textContent=song.title;
+document.getElementById("album-cover").src=song.cover;
+}
+
+function nextSong(){
+trackIndex++;
+if(trackIndex>=playlist.length)trackIndex=0;
+loadSong();
+document.getElementById("bgmusic").play();
+}
+
+function prevSong(){
+trackIndex--;
+if(trackIndex<0)trackIndex=playlist.length-1;
+loadSong();
+document.getElementById("bgmusic").play();
+}
+
+function setVolume(value){
+const audio=document.getElementById("bgmusic");
+audio.volume=Math.min(value,0.30);
+}
+
+document.addEventListener("mousemove",(e)=>{
+spawnParticle(e.clientX,e.clientY);
+});
+
+function spawnParticle(x,y){
+
+const particle=document.createElement("img");
+particle.src="images/trail.png";
+particle.className="cursor-particle";
+
+document.body.appendChild(particle);
+
+particle.style.left=x+"px";
+particle.style.top=y+"px";
+
+const angle=Math.random()*Math.PI*2;
+const velocity=Math.random()*40+10;
+
+const dx=Math.cos(angle)*velocity;
+const dy=Math.sin(angle)*velocity;
+
+particle.animate([
+{transform:"translate(-50%, -50%) scale(1)",opacity:1},
+{transform:`translate(${dx}px, ${dy}px) scale(0.3)`,opacity:0}
+],{
+duration:700,
+easing:"ease-out"
+});
+
+setTimeout(()=>{
+particle.remove();
+},700);
+}
+
+const text="hop on skyblock";
+const element=document.getElementById("typewriter");
+
+let index=0;
+let deleting=false;
+
+function typeLoop(){
+
+if(!deleting){
+element.textContent=text.substring(0,index+1);
+index++;
+
+if(index===text.length){
+deleting=true;
+setTimeout(typeLoop,1200);
+return;
+}
+
+}else{
+element.textContent=text.substring(0,index-1);
+index--;
+
+if(index===0){
+deleting=false;
+}
+}
+
+setTimeout(typeLoop,deleting?50:90);
+}
+
+typeLoop();
+
+</script>
+
+</body>
+</html>
